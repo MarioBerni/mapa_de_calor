@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
           const dataset = data.monthlyVariance;
           const baseTemp = data.baseTemperature;
 
-          const margin = { top: 100, right: 60, bottom: 150, left: 100 };
+          const margin = { top: 100, right: 60, bottom: 220, left: 100 };
           const width = Math.min(window.innerWidth - margin.left - margin.right, 1200);
-          const height = Math.min(window.innerHeight - margin.top - margin.bottom, 600);
+          const height = 400;
 
           const svg = d3.select("#heatmap")
               .attr("width", width + margin.left + margin.right)
@@ -53,25 +53,40 @@ document.addEventListener("DOMContentLoaded", function () {
                   d3.select("#tooltip").style("display", "none");
               });
 
-          const xAxis = d3.axisBottom(xScale).tickValues(xScale.domain().filter(year => year % 10 === 0)).tickFormat(d => d);
-          const yAxis = d3.axisLeft(yScale).tickFormat(month => {
-              const date = new Date(0);
-              date.setUTCMonth(month - 1);
-              return d3.timeFormat("%B")(date);
-          });
+          const xAxis = d3.axisBottom(xScale)
+              .tickValues(xScale.domain().filter((year, i) => i % 10 === 0))
+              .tickFormat(d => d);
+          const yAxis = d3.axisLeft(yScale)
+              .tickFormat(month => {
+                  const date = new Date(0);
+                  date.setUTCMonth(month - 1);
+                  return d3.timeFormat("%B")(date);
+              });
 
           svg.append("g")
               .attr("id", "x-axis")
               .attr("transform", `translate(0, ${height})`)
-              .call(xAxis);
+              .call(xAxis)
+              .selectAll("text")
+              .attr("text-anchor", "end")
+              .attr("dy", "1.5em")
+              .attr("transform", "rotate(-45)");
 
           svg.append("g")
               .attr("id", "y-axis")
               .call(yAxis);
 
+          svg.append("text")
+              .attr("transform", "translate(" + (-margin.left / 1.5) + "," + (height / 2) + ") rotate(-90)")
+              .text("Meses");
+
+          svg.append("text")
+              .attr("transform", "translate(" + (width / 2) + "," + (height + margin.bottom / 3) + ")")
+              .text("Años");
+
           const legend = svg.append("g")
               .attr("id", "legend")
-              .attr("transform", `translate(${width / 2 - 50}, ${height + 60})`);
+              .attr("transform", `translate(0, ${height + 60})`);
 
           const legendCellWidth = 30;
           legend.selectAll("rect")
@@ -87,8 +102,10 @@ document.addEventListener("DOMContentLoaded", function () {
               .domain(d3.extent(dataset, d => baseTemp + d.variance))
               .range([0, legendCellWidth * colors.length]);
 
-          const legendAxis = d3.axisBottom(legendScale).tickFormat(d3.format(".1f")).ticks(colors.length);
-          
+          const legendAxis = d3.axisBottom(legendScale)
+              .tickFormat(d3.format(".1f"))
+              .ticks(colors.length);
+
           legend.append("g")
               .attr("transform", "translate(0, 20)")
               .call(legendAxis);
