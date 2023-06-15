@@ -29,10 +29,17 @@ body, html {
   font-size: 12px;
 }
 
+#description {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
 @media (max-width: 600px) {
   #title, #description {
       font-size: 14px;
       text-align: center;
+      margin-left: 5px;
+      margin-right: 5px;
   }
   .tick text {
       font-size: 8px; /* Ajuste aquí */
