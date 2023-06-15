@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
           const dataset = data.monthlyVariance;
           const baseTemp = data.baseTemperature;
 
-          const margin = { top: 100, right: 60, bottom: 220, left: 100 };
+          const margin = { top: 80, right: 60, bottom: 200, left: 80 };
           const width = Math.min(window.innerWidth - margin.left - margin.right, 1200);
-          const height = 400;
+          const height = window.innerWidth <= 600 ? 300 : 400;
 
           const svg = d3.select("#heatmap")
               .attr("width", width + margin.left + margin.right)
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
               });
 
           const xAxis = d3.axisBottom(xScale)
-              .tickValues(xScale.domain().filter((year, i) => i % 10 === 0))
+              .tickValues(xScale.domain().filter((year, i) => window.innerWidth <= 600 ? i % 20 === 0 : i % 10 === 0))
               .tickFormat(d => d);
           const yAxis = d3.axisLeft(yScale)
               .tickFormat(month => {
