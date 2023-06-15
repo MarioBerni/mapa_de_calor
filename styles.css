@@ -11,10 +11,6 @@ body, html {
   justify-content: center;
 }
 
-#description {
-  margin-bottom: 20px; /* Añadir margen inferior */
-}
-
 #heatmap {
   margin: 0 auto;
 }
@@ -39,6 +35,9 @@ body, html {
       text-align: center;
   }
   .tick text {
-      font-size: 10px;
+      font-size: 8px; /* Ajuste aquí */
+  }
+  #heatmap {
+    width: 100%; /* Ajuste aquí */
   }
 }
