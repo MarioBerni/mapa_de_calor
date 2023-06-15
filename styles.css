@@ -1,0 +1,32 @@
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+#heatmap {
+  margin: 0 auto;
+}
+
+#tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  display: none;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  #title, #description {
+      font-size: 14px;
+  }
+}
