@@ -9,11 +9,14 @@ body, html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+}
+
+#description {
+  margin-bottom: 20px; /* Añadir margen inferior */
 }
 
 #heatmap {
-  margin: 20px auto;
+  margin: 0 auto;
 }
 
 #tooltip {
@@ -36,6 +39,6 @@ body, html {
       text-align: center;
   }
   .tick text {
-      font-size: 8px;
+      font-size: 10px;
   }
 }
